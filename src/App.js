@@ -125,7 +125,7 @@ function App() {
 
   return (
     <div>
-      <Header values={currentData} content={content} />
+      <Header values={currentData} />
       <Switch>
         <Route path="/error" component={Error} />
         <Route path="/">
