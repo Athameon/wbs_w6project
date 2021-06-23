@@ -1,19 +1,43 @@
-import React from 'react';
+import React, {useEffect, useState } from 'react';
 import CryptoInfo from './CryptoInfo';
 import { useParams } from 'react-router-dom';
-import marked from 'marked'
+import marked from 'marked';
 
 import './Crypto.css'
 
-const Crypto = ({items, currentData}) => {
+const Crypto = ({currentData}) => {
   const { id } = useParams();
   console.log(id);
-  const crypto = items.filter(item => item.sys.contentType.sys.id === 'crypto')
-    .filter(item => item.fields.id === id)[0];
-  console.log(crypto);
 
-  const image = crypto && crypto.fields.image && crypto.fields.image.fields;
-  console.log(image && image.file.url);
+  const [content, setContent] = useState(); 
+
+  useEffect(() => {
+    // setIsLoading(true);
+    // setIsError(false);
+
+    fetch('http://localhost:4000/wiki/'+id)
+      .then(
+        (result) => {
+          if (result.ok) {
+            return result.json();
+          }
+          throw Error('Error');
+        },
+        (error) => {
+          throw Error('Network Error');
+        }
+      )
+      .then((jsonData) => {
+        // setIsLoading(false);
+        console.log(jsonData);
+        setContent(jsonData);
+      })
+      .catch((error) => {
+        console.error(error);
+        // setIsLoading(false);
+        // setIsError(true);
+      });
+  }, [id]);
 
   const currentCryptoInfo = currentData && currentData.filter(item => item.id.toLowerCase() === id)[0];
 
@@ -25,11 +49,11 @@ const Crypto = ({items, currentData}) => {
         </div>
       </div>
       <div className='cryptoDescription'>
-        {crypto ?
+        {content ?
           <div>
-            <h1>{crypto.fields.title}</h1>
-            <img src={image && image.file.url} alt={image && image.title} />
-            <section dangerouslySetInnerHTML={{ __html: marked(crypto.fields.description)}} />
+            <h1>{content.fields.title}</h1>
+            <img src={content.fields.image && content.fields.image.fields.file.url} alt='a spicture' />
+            <section dangerouslySetInnerHTML={{ __html: marked(content.fields.description)}} />
           </div>
         :
           <div>

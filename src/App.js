@@ -48,80 +48,80 @@ function App() {
   }, []);
 
   // hook for fetching with time interval
-  useEffect(() => {
-    const interval = setInterval(() => {
-      console.log('Trigger fetch data from api.');
-      const nomicApiUrl =
-        process.env.REACT_APP_NOMICS_API_URL +
-        '?key=' +
-        process.env.REACT_APP_NOMICS_API_KEY +
-        '&ids=' +
-        coins +
-        '&convert=EUR&per-page=100&page=1';
-      fetch(nomicApiUrl, {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      })
-        .then(
-          (result) => {
-            console.log(result);
-            if (result.ok) {
-              return result.json();
-            }
-            throw Error('Error');
-          },
-          (error) => {
-            throw Error('Network Error');
-          }
-        )
-        .then((jsonData) => {
-          if (priceDelta.current !== jsonData[0].price) {
-            console.log('Update price');
-            setCurrentData(jsonData);
-            priceDelta.current = jsonData[0].price;
-          }
-        })
-        .catch((error) => {
-          console.error('Failed to fetch the data.');
-        });
-    }, 5000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [coins]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     console.log('Trigger fetch data from api.');
+  //     const nomicApiUrl =
+  //       process.env.REACT_APP_NOMICS_API_URL +
+  //       '?key=' +
+  //       process.env.REACT_APP_NOMICS_API_KEY +
+  //       '&ids=' +
+  //       coins +
+  //       '&convert=EUR&per-page=100&page=1';
+  //     fetch(nomicApiUrl, {
+  //       method: 'GET', // *GET, POST, PUT, DELETE, etc.
+  //       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+  //     })
+  //       .then(
+  //         (result) => {
+  //           console.log(result);
+  //           if (result.ok) {
+  //             return result.json();
+  //           }
+  //           throw Error('Error');
+  //         },
+  //         (error) => {
+  //           throw Error('Network Error');
+  //         }
+  //       )
+  //       .then((jsonData) => {
+  //         if (priceDelta.current !== jsonData[0].price) {
+  //           console.log('Update price');
+  //           setCurrentData(jsonData);
+  //           priceDelta.current = jsonData[0].price;
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error('Failed to fetch the data.');
+  //       });
+  //   }, 5000);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [coins]);
 
   // hook for the fetch of the first render
-  useEffect(() => {
-    const nomicApiUrl =
-      process.env.REACT_APP_NOMICS_API_URL +
-      '?key=' +
-      process.env.REACT_APP_NOMICS_API_KEY +
-      '&ids=' +
-      coins +
-      '&convert=EUR&per-page=100&page=1';
-    fetch(nomicApiUrl, {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    })
-      .then(
-        (result) => {
-          console.log(result);
-          if (result.ok) {
-            return result.json();
-          }
-          throw Error('Error');
-        },
-        (error) => {
-          throw Error('Network Error');
-        }
-      )
-      .then((jsonData) => {
-        setCurrentData(jsonData);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   const nomicApiUrl =
+  //     process.env.REACT_APP_NOMICS_API_URL +
+  //     '?key=' +
+  //     process.env.REACT_APP_NOMICS_API_KEY +
+  //     '&ids=' +
+  //     coins +
+  //     '&convert=EUR&per-page=100&page=1';
+  //   fetch(nomicApiUrl, {
+  //     method: 'GET', // *GET, POST, PUT, DELETE, etc.
+  //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+  //   })
+  //     .then(
+  //       (result) => {
+  //         console.log(result);
+  //         if (result.ok) {
+  //           return result.json();
+  //         }
+  //         throw Error('Error');
+  //       },
+  //       (error) => {
+  //         throw Error('Network Error');
+  //       }
+  //     )
+  //     .then((jsonData) => {
+  //       setCurrentData(jsonData);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
   return (
     <div>

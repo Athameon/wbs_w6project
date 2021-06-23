@@ -14,7 +14,7 @@ const Main = ({content, currentData}) => {
           <Author {...content} />
         </Route>
         <Route path="/crypto/:id">
-          <Crypto {...content} currentData={currentData} />
+          <Crypto currentData={currentData} />
         </Route>
         <Route path="/">
           <News {...content} />

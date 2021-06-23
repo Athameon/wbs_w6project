@@ -1,0 +1,19 @@
+1. Create Project
+2. Get with express 
+3. Create Json File with all data from Contentful
+4. Return content from json file inside get of express
+	4.1 Read json file with fs.readFile()
+	4.2 Return read content
+5. Change frontent to fetch data from our server
+	5.1 Delete Client.getEntries() and replace with fetch -> then -> then
+
+6. Delete information from json file we don't need
+	6.1 Delete data
+	6.2 Extract author information from json file into its own json file
+	6.3 Separate wiki information from blog json file
+7. Transfer pictures from contentful to our own backend
+8. Making routes in the backend
+
+Benjamin Nopper7:18 PM
+      "id": "339b166e-6b0d-4739-babf-caaa72906ace",
+      "type": "wiki",
